@@ -6,7 +6,7 @@ import streamlit as st
 
 # Define the base URL for the API
 base_url = "https://api.theirstack.com/v1/jobs/search"
-api_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyZW1zd29ybGRiZWF0c0BnbWFpbC5jb20iLCJwZXJtaXNzaW9ucyI6InVzZXIiLCJjcmVhdGVkX2F0IjoiMjAyNS0wMy0zMFQxNzoxOToyNS4xMjg2NjQrMDA6MDAifQ.NpGSpReSEPAatgcRoj8qMHAFlVr_H0_sMuImslOkgrs"
+api_key = "apikey"
 
 # Function to fetch job listings based on search term, location, and filters
 def fetch_jobs(search_term, location):

@@ -45,20 +45,54 @@ def fetch_jobs(search_term, location):
         # Display job listings as a simple table
         # Display job listings in a grid format using columns
 
-        st.write(job_data)  # Render HTML
+        st.write(job_data)  # Raw data output
+        for job in job_data.get('jobs', []):  # Ensure 'jobs' key exists
+            job_title = job.get('job_title', 'N/A')
+            company_name = job.get('company_name', 'N/A')
+            job_location = job.get('location', 'N/A')
+            job_description = job.get('job_description', 'N/A')
+            date_posted = job.get('date_posted', 'N/A')
+            job_url = job.get('job_url', '#')
+
+             # Ghost job detection criteria
+            is_ghost_job = False
+
+            # Ghost job detection criteria:
+             
+                # Likely ghost job if company or location is missing, or description is too short
+            if 'reposted': True
+            continue
+                
+
+            # Add additional checks for outdated listings, unrealistic titles, etc.
+            if len(job_title.split()) < 3 or int(date_posted.split("-")[0]) < 2025:
+                continue
+
+             # Highlight ghost jobs with red color
+            if is_ghost_job:
+                job_listings.append(f"""
+                    <div style="background-color: red; color: white; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
+                        <strong>Job Title:</strong> {job_title} <br>
+                        <strong>Company:</strong> {company_name} <br>
+                        <strong>Location:</strong> {job_location} <br>
+                        <strong>Date Posted:</strong> {date_posted} <br>
+                        <a href="{job_url}" target="_blank" style="color: white; text-decoration: underline;">Apply here</a>
+                    </div>
+                """)
+            else:
+                # Normal job listings without ghost job criteria
+                job_listings.append(f"""
+                    <div style="background-color: lightgray; color: blue; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
+                        <strong>Job Title:</strong> {job_title} <br>
+                        <strong>Company:</strong> {company_name} <br>
+                        <strong>Location:</strong> {job_location} <br>
+                        <strong>Date Posted:</strong> {date_posted} <br>
+                        <a href="{job_url}" target="_blank" style="color: black; text-decoration: underline;">Apply here</a>
+                    </div>
+                """)
 
 
-        # Debugging: Uncomment the line below to see the job data structure
-        #st.write(job_data)  # Display the raw API response
 
-        # Extract and store information for each job listing from the API response
-        #for job in job_data.get('jobs', []):  # Ensure 'jobs' key exists
-         #   job_listings.append({
-          #      'Job Title': job.get('job_title', 'N/A'),
-           #     'Company': job.get('company_name', 'N/A'),
-            #    'Location': job.get('location', 'N/A'),
-             #   'Posted Date': job.get('date_posted', 'N/A')  # Add posted date
-            #})
     else:
         st.write(f"Error: {response.status_code} - {response.text}")
 

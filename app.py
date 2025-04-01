@@ -6,7 +6,7 @@ import streamlit as st
 
 # Define the base URL for the API
 base_url = "https://api.theirstack.com/v1/jobs/search"
-api_key = "apikeyy"
+api_key = "apikey"
 
 # Function to fetch job listings based on search term, location, and filters
 def fetch_jobs(search_term, location):
@@ -14,7 +14,7 @@ def fetch_jobs(search_term, location):
 
     # Construct the payload with the correct fields
     payload = {
-        "posted_at_max_age_days": 15,  # Filter jobs posted within the last 15 days
+        "posted_at_max_age_days": 10,  # Filter jobs posted within the last 15 days
         "posted_at_gte": "2025-03-01",  # Optional: Add the 'posted_at_gte' filter
         "posted_at_lte": "2025-03-30",  # Optional: Add the 'posted_at_lte' filter
         "job_country_code_or": ["US"],  # Filter for job listings in the US
@@ -45,7 +45,7 @@ def fetch_jobs(search_term, location):
         # Display job listings as a simple table
         # Display job listings in a grid format using columns
 
-        st.write(job_data)  # Raw data output
+        st.write(job_data)  # Raw data output.
         for job in job_data.get('jobs', []):  # Ensure 'jobs' key exists
             job_title = job.get('job_title', 'N/A')
             company_name = job.get('company_name', 'N/A')
@@ -102,6 +102,12 @@ def fetch_jobs(search_term, location):
 
 # Streamlit UI to collect user inputs for search term and location
 st.title("Job Search")
+with st.sidebar:
+    with st.echo():
+        st.write("This code will be printed to the sidebar.")
+    
+with st.spinner("Loading..."):
+    time.sleep(5)
 
 # User inputs for search term and location
 search_term = st.text_input("Enter job title or keyword", "software engineer")
